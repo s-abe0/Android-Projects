@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CompSciQuiz</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="next_button">Next</string>
+    <string name="correct">Correct!</string>
+    <string name="incorrect">Incorrect!</string>
+
+    <string name="question_abstraction">An abstract class can be used to create objects.</string>
+    <string name="question_abstractUML">In UML graphic notation, names of abstract classes and methods are italicized.</string>
+    <string name="question_abstractMethod">A class that contains abstract methods does not have to be declared as abstract.</string>
+</resources>

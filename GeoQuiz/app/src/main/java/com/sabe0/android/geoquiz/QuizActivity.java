@@ -1,6 +1,7 @@
 package com.sabe0.android.geoquiz;
 
-import android.graphics.Color;
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,23 +13,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /*
-    Notes for work on June 13, 2017
-        Implementing more appealing answering displays. Got buttons to disable after user answers.
-        Want to make buttons color (either red to indicated wrong answer, or green to indicate correct)
-        after anwering. Then work on a graded quiz.
- */
+    This program is from the first five chapters of the book Android Programming: The Big Nerd Ranch Guide, 3rd edition,
+    with some of the end of chapter challenges completed (I'm not listing them all).
+*/
 
 public class QuizActivity extends AppCompatActivity
 {
     private Button mTrueButton;
     private Button mFalseButton;
+    private Button mCheatButton;
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
     private TextView mQuestionTextView;
     private int mCurrentIndex = 0;
+    private boolean mIsCheater;
 
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
+    private static final int REQUEST_CODE_CHEAT = 0;
 
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia, true),
@@ -98,6 +100,7 @@ public class QuizActivity extends AppCompatActivity
         mFalseButton = (Button) findViewById(R.id.false_button);  // so a Button cast is needed.
         mNextButton = (ImageButton) findViewById(R.id.next_button);
         mPrevButton = (ImageButton) findViewById(R.id.prev_button);
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
 
         updateQuestion();
 
@@ -125,6 +128,7 @@ public class QuizActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                mIsCheater = false;   // reset for next question.
                 updateQuestion();
             }
         });
@@ -157,13 +161,25 @@ public class QuizActivity extends AppCompatActivity
                 updateQuestion();
             }
         });
+
+        mCheatButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // Start CheatActivity
+                Intent intent = CheatActivity.newIntent(QuizActivity.this, mQuestionBank[mCurrentIndex].isAnswerTrue());
+                startActivityForResult(intent, REQUEST_CODE_CHEAT);
+
+            }
+        });
     }
 
     private void checkAnswer(boolean userAnswer)
     {
-        mQuestionBank[mCurrentIndex].setUserAnswer(userAnswer);             // set the users answer (true or false)
-        mQuestionBank[mCurrentIndex].setWasAnswered(true);                  // indicate that this answer was answered
-        boolean answer = mQuestionBank[mCurrentIndex].isAnswerTrue();       // get the answer for this question
+        mQuestionBank[mCurrentIndex].setUserAnswer(userAnswer);             // set the users answer (true or false).
+        mQuestionBank[mCurrentIndex].setWasAnswered(true);                  // indicate that this answer was answered.
+        boolean answer = mQuestionBank[mCurrentIndex].isAnswerTrue();       // get the answer for this question.
         int messageResId = 0;
 
         // Disable the buttons
@@ -171,7 +187,11 @@ public class QuizActivity extends AppCompatActivity
         mFalseButton.setEnabled(false);
 
         // Get the answer and indicate the user
-        if(userAnswer == answer)
+        if(mIsCheater)
+        {
+            messageResId = R.string.judgment_toast;
+        }
+        else if(userAnswer == answer)
         {
             messageResId = R.string.correct_toast;
         }
@@ -183,6 +203,23 @@ public class QuizActivity extends AppCompatActivity
         Toast t = Toast.makeText(this, messageResId, Toast.LENGTH_SHORT);
         t.setGravity(Gravity.TOP, 0, 500);
         t.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        // If the user did not cheat, we don't need to do anything.
+        if(resultCode != Activity.RESULT_OK)
+            return;
+
+        // If this activity result is from the CheatActivity (requestCode == 0)
+        if(requestCode == REQUEST_CODE_CHEAT)
+        {
+            if(data == null)
+                return;
+
+            mIsCheater = CheatActivity.wasAnswerShown(data);
+        }
     }
 
     /*

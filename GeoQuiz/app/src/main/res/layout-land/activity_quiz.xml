@@ -58,4 +58,12 @@
             android:text="@string/false_button"/>
     </LinearLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="24dp"
+        android:text="@string/cheat_button"
+        android:id="@+id/cheat_button"/>
+
 </FrameLayout>
