@@ -3,10 +3,26 @@
     <string name="true_button">True</string>
     <string name="false_button">False</string>
     <string name="next_button">Next</string>
+    <string name="retry_button">Retry</string>
     <string name="correct">Correct!</string>
     <string name="incorrect">Incorrect!</string>
+    <string name="end_of_quiz">End of quiz!</string>
 
+    <!-- Quiz Questions -->
+    <!-- Abstraction
+          1) false  2) true  3) false  4) true  5) false-->
     <string name="question_abstraction">An abstract class can be used to create objects.</string>
     <string name="question_abstractUML">In UML graphic notation, names of abstract classes and methods are italicized.</string>
     <string name="question_abstractMethod">A class that contains abstract methods does not have to be declared as abstract.</string>
+    <string name="question_abstractSubclass">If a non-abstract class extends an abstract class, the subclass must implement all abstract classes.</string>
+    <string name="question_abstractSubclassConcrete">Subclasses of concrete classes must also be concrete.</string>
+
+    <!-- Interfaces
+          1) true  2) true  3) true  4) true  5) false-->
+    <string name="question_interfaces">You cannot create an instance from an interface using the \'new\' operator.</string>
+    <string name="question_interfaceConstructor">An interface cannot contain a constructor.</string>
+    <string name="question_interfaceImplement">A class implementing an interface must define all the interfaces methods, or be declared as abstract.</string>
+    <string name="question_interfaceDescription">An interface is simply a group of related methods with empty bodies.</string>
+    <string name="question_interfaceFields">Fields in an interface do not have to be static final; i.e. constant.</string>
+    <!-- Generics -->
 </resources>

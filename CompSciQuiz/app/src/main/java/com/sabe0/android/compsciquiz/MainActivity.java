@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     private TextView mQuestionTextView;
     private TextView mCorrectTextView;
     private int mCurrentIndex = 0;
+    private boolean eoq_flag = false;
     private Question[] mQuestionBank;
 
     @Override
@@ -63,18 +64,30 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        // Next button is used as both 'next question' and 'retry quiz'
         mNextButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 mCurrentIndex += 1;
-                if(mCurrentIndex >= mQuestionBank.length)           // If all questions answered,
+
+                // If the end of the quiz is reached and user hits 'Retry', reset question index pointer,
+                // next button text, end of quiz flag, and get the first question.
+                if(eoq_flag)
                 {
-                    mTrueButton.setEnabled(false);                  // disable all the buttons,
+                    mCurrentIndex = 0;
+                    mNextButton.setText(R.string.next_button);
+                    eoq_flag = false;
+                    updateQuestion();
+                }
+                else if(mCurrentIndex >= mQuestionBank.length)      // If all questions answered,
+                {
+                    eoq_flag = true;                                // set the end of quiz flag,
+                    mTrueButton.setEnabled(false);                  // disable true/false buttons,
                     mFalseButton.setEnabled(false);                 // let the user know the quiz is finished,
-                    mNextButton.setEnabled(false);
-                    mQuestionTextView.setText("End of quiz!");
+                    mNextButton.setText(R.string.retry_button);     // set next button text to 'Retry',
+                    mQuestionTextView.setText(R.string.end_of_quiz);
                     gradeQuiz();                                    // and grade the quiz.
                 }
                 else
@@ -110,6 +123,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         mCorrectTextView.setText(messageResId);                       // Let the user know if they were right or wrong.
+        mNextButton.setVisibility(View.VISIBLE);                      // Show the next button
     }
 
     /*
@@ -142,7 +156,8 @@ public class MainActivity extends AppCompatActivity
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
 
-        // Re-enable the true/false buttons and remove the Correct/Incorrect text display.
+        // Remove the next button, re-enable the true/false buttons and remove the Correct/Incorrect text display.
+        mNextButton.setVisibility(View.INVISIBLE);
         mTrueButton.setEnabled(true);
         mFalseButton.setEnabled(true);
         mCorrectTextView.setText("");
@@ -159,6 +174,14 @@ public class MainActivity extends AppCompatActivity
                 new Question(R.string.question_abstraction, false),
                 new Question(R.string.question_abstractUML, true),
                 new Question(R.string.question_abstractMethod, false),
+                new Question(R.string.question_abstractSubclass, true),
+                new Question(R.string.question_abstractSubclassConcrete, false),
+
+                new Question(R.string.question_interfaces, true),
+                new Question(R.string.question_interfaceConstructor, true),
+                new Question(R.string.question_interfaceImplement, true),
+                new Question(R.string.question_interfaceDescription, true),
+                new Question(R.string.question_interfaceFields, false)
         };
     }
 }
