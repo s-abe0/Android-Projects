@@ -24,5 +24,4 @@
     <string name="question_interfaceImplement">A class implementing an interface must define all the interfaces methods, or be declared as abstract.</string>
     <string name="question_interfaceDescription">An interface is simply a group of related methods with empty bodies.</string>
     <string name="question_interfaceFields">Fields in an interface do not have to be static final; i.e. constant.</string>
-    <!-- Generics -->
 </resources>
