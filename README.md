@@ -9,5 +9,5 @@ and have completed various end of chapter challenges. Chapter six is about Andro
 A side project of mine after finishing GeoQuiz. It is a very basic True/False quiz with various questions about computer programming topics, such as Interfaces, Abstraction, Generics,
 Inheritance, etc. I am mostly using it for myself to keep my mind fresh with computer science topics while job hunting. It is still in development; it needs more questions.  
 
-** CriminalIntent **
+#### CriminalIntent
 Second project from the Android Programming book. Starts in chapter 7. 
