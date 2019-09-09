@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/framelayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#a6a6a6"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#000">
+
+        <TextView
+            android:id="@+id/score_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Snake"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/pause_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_pause_button" />
+
+        <ImageView
+            android:id="@+id/resume_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_resume_button" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <com.example.shaneabe.snakegame.SnakeEngine
+        android:id="@+id/snakeengineview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2sp" />
+</LinearLayout>

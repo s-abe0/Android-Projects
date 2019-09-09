@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainmenubackground"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:padding="24dp"
+        android:text="Snake"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="#ffffff"
+        android:textSize="60dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:text="Start game" />
+
+</LinearLayout>
